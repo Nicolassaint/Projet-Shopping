@@ -4,10 +4,7 @@
  */
 package projet;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
 /**
@@ -16,27 +13,29 @@ import java.sql.Statement;
  */
 public class Projet {
 
-    private final Connection conn;
-    private final Statement stmt;
+    public static void main(String[] args) throws SQLException{
     
-    public Connexion(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException{
-        // chargement driver "com.mysql.jdbc.Driver"
-        Class.forName("com.mysql.jdbc.Driver");
+    Connection con = null;
 
-        // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
-        String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
-       // String urlDatabase = "jdbc:mysql://localhost:3308/jps?characterEncoding=latin1";
-
-        //création d'une connexion JDBC à la base 
-        conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
-
-        // création d'un ordre SQL (statement)
-        stmt = conn.createStatement();
-    }
-    
-    public static void main(String[] args) {
+    // db parameters
+    String url       = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull";
+    String user      = "root";
+    String password  = "";
+	
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+    String requete="INSERT INTO shopping.employé VALUES('thomas','chopin','tom','mdp')";
+    try{
+        Statement stm = con.createStatement();
+        int nbMaj = stm.executeUpdate(requete);
+        System.out.println("nb maj ="+nbMaj);
         
-          Connexion(nameBDDTexte.getText(), "root", "");
+    }catch(SQLException e){
+        e.printStackTrace();
+        
     }
     
+  }
 }
