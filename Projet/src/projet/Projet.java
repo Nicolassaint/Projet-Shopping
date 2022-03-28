@@ -22,6 +22,7 @@ public class Projet {
     String user      = "root";
     String password  = "";
 	
+    
     // create a connection to the database
     con = DriverManager.getConnection(url, user, password);
    	
@@ -30,7 +31,7 @@ public class Projet {
     try{
         Statement stm = con.createStatement();
         int nbMaj = stm.executeUpdate(requete);
-        System.out.println("nb maj ="+nbMaj);
+        System.out.println("nb de modifs BDD = " + nbMaj);
         
     }catch(SQLException e){
         e.printStackTrace();
