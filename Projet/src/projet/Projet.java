@@ -18,19 +18,21 @@ public class Projet {
     Connection con = null;
 
     // db parameters
-    String url       = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull";
+    String url       = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull&useSSL=false";
+    //String url = "jdbc:mysql://localhost:3306/Peoples?autoReconnect=true&useSSL=false";
     String user      = "root";
     String password  = "";
 	
+    
     // create a connection to the database
     con = DriverManager.getConnection(url, user, password);
    	
     //Requete test
-    String requete="INSERT INTO shopping.employé VALUES('thomas','chopin','tom','mdp')";
+    String requete="INSERT INTO projet.emp VALUES(7,'test','test','test','test')";
     try{
         Statement stm = con.createStatement();
         int nbMaj = stm.executeUpdate(requete);
-        System.out.println("nb maj ="+nbMaj);
+        System.out.println("nb de modifs BDD = " + nbMaj);
         
     }catch(SQLException e){
         e.printStackTrace();
