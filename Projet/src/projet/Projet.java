@@ -18,7 +18,7 @@ public class Projet {
     Connection con = null;
 
     // db parameters
-     String url       = "jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull";
+    String url       = "jdbc:mysql://localhost:3306/projet";
     String user      = "root";
     String password  = "";
 	
@@ -27,7 +27,8 @@ public class Projet {
     con = DriverManager.getConnection(url, user, password);
    	
     //Requete test
-    String requete="INSERT INTO projet.emp VALUES(7,'test','test','test','test')";
+    String requete="INSERT INTO projet.emp VALUES(13,'test','test','test','test')";
+            
     try{
         Statement stm = con.createStatement();
         int nbMaj = stm.executeUpdate(requete);
