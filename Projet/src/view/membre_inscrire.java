@@ -4,6 +4,13 @@
  */
 package view;
 
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 /**
  *
  * @author roysfeir
@@ -59,25 +66,29 @@ public class membre_inscrire extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Créer mon compte");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Téléphone :");
 
         jLabel8.setText("Adresse mail :");
 
-        jTextField5.setText("jTextField5");
-
-        jTextField6.setText("jTextField6");
-
         jButton1.setText("Créer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Retour");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -167,6 +178,73 @@ public class membre_inscrire extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Menu_entree menu = new Menu_entree();
+        menu.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Connection con = null;
+
+    // db parameters
+    String url       = "jdbc:mysql://localhost:3306/projet";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+    String requete1="Select count(*) as nombre_acheteur from acheteur";
+            
+        Statement stm1 = con.createStatement();
+        ResultSet resultat = stm1.executeQuery(requete1);
+        
+        int nombre_acheteur_actuel = 0;
+        
+        while(resultat.next())
+        {
+        nombre_acheteur_actuel = Integer.parseInt(resultat.getObject(1).toString());
+        //System.out.println(nombre_acheteur_actuel);
+        }
+        
+        nombre_acheteur_actuel = nombre_acheteur_actuel + 1;
+        
+        String mail = jTextField5.getText();
+        String mdp = jTextField6.getText();
+        String prenom = jTextField2.getText();
+        String nom = jTextField1.getText();
+        String telephone = jTextField4.getText();
+        String adresse = jTextField3.getText();
+              
+    String requete2="Insert into acheteur values('"+nombre_acheteur_actuel+"','"+mail+"','"+mdp+"','"+prenom+"','"+nom+"','"+telephone+"','0','0','0','"+adresse+"')";
+
+        Statement stm2 = con.createStatement();   
+        stm2.executeUpdate(requete2);
+        
+        //A blinder 
+        JOptionPane.showMessageDialog(null,"Création réussie !");        
+        
+        con.close();
+        
+        Menu_entree menu = new Menu_entree();
+        menu.show();
+        dispose();
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
