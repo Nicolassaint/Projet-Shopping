@@ -69,9 +69,13 @@ public class Menu_entree extends javax.swing.JFrame {
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, -1));
 
         jButton3.setText("Quitter");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 360, -1, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\roysfeir\\Pictures\\R.jpg")); // NOI18N
         jLabel3.setText("jLabel3");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 600));
 
@@ -102,10 +106,12 @@ public class Menu_entree extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        membre_login log = new membre_login();
-        log.setVisible(true);
-        this.setVisible(false);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
