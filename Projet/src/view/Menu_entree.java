@@ -45,7 +45,6 @@ public class Menu_entree extends javax.swing.JFrame {
         jLabel1.setText("LOVE TO LOVE FLOWERS");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 530, 50));
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Membre");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,7 +53,6 @@ public class Menu_entree extends javax.swing.JFrame {
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 150, 50));
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Admin");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +74,7 @@ public class Menu_entree extends javax.swing.JFrame {
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 360, -1, -1));
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/R.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 600));
 
@@ -106,6 +105,8 @@ public class Menu_entree extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        membre_login membre = new membre_login();
+        membre.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
