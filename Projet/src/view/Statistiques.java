@@ -5,19 +5,15 @@
 package view;
 
 import java.sql.*;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import java.io.*;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
+import java.sql.DriverManager;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.ChartUtilities;
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+import org.jfree.chart.ChartUtilities; 
 import org.jfree.chart.ChartPanel;
 
 /**
@@ -46,6 +42,7 @@ public class Statistiques extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +65,13 @@ public class Statistiques extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jButton3.setText("Enregistrer le graphique");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,9 +83,11 @@ public class Statistiques extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+                .addGap(112, 112, 112)
                 .addComponent(jButton1)
-                .addGap(26, 26, 26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(24, 24, 24))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -90,7 +96,8 @@ public class Statistiques extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -137,6 +144,7 @@ public class Statistiques extends javax.swing.JFrame {
             resultat.close();
             stm.close();
             con.close();
+            
             int width = 1000;
             int height = 480;
             
@@ -154,6 +162,50 @@ public class Statistiques extends javax.swing.JFrame {
         
     
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Connection con = null;
+
+        // db parameters
+        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+        String user = "root";
+        String password = "";
+
+        DefaultCategoryDataset bar_chart_dataset = new DefaultCategoryDataset();
+
+        try {
+            // create a connection to the database
+            con = DriverManager.getConnection(url, user, password);
+
+            String requete = "Select nom,quantite from produit";
+
+            Statement stm = con.createStatement();
+            ResultSet resultat = stm.executeQuery(requete);
+
+            while (resultat.next()) {
+                String nom = resultat.getString("nom");
+                int quantite = resultat.getInt("quantite");
+                bar_chart_dataset.addValue(quantite, "Quantite", nom);
+            }
+            JFreeChart BarChartObject = ChartFactory.createBarChart("Quantite en stock pour chaque fleur", "Fleur", "Quantite", bar_chart_dataset, PlotOrientation.VERTICAL, true, true, false);
+            resultat.close();
+            stm.close();
+            con.close();
+            
+            int width = 1000;
+            int height = 480;
+            
+            File BarChart = new File("graphique.png");
+            ChartUtilities.saveChartAsPNG(BarChart, BarChartObject, width, height);
+            
+            JOptionPane.showMessageDialog(null,"Le graphique à bien été enregistré !");        
+
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+            
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,6 +245,7 @@ public class Statistiques extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
