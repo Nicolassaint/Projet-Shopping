@@ -142,7 +142,7 @@ public class admin_login extends javax.swing.JFrame {
         Connection con = null;
 
     // db parameters
-    String url       = "jdbc:mysql://localhost:3306/projet";
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
     String user      = "root";
     String password  = "";
 	
@@ -163,7 +163,10 @@ public class admin_login extends javax.swing.JFrame {
         
         if (res.next())
         {
-          JOptionPane.showMessageDialog(null,"Login reussi");        
+          JOptionPane.showMessageDialog(null,"Login reussi"); 
+          admin_pannel pannel = new admin_pannel();
+          pannel.show();
+          dispose();
         }
         else
         {
@@ -175,9 +178,6 @@ public class admin_login extends javax.swing.JFrame {
         
         con.close();
         
-        admin_pannel pannel = new admin_pannel();
-        pannel.show();
-        dispose();
         
     }catch(SQLException e){
         e.printStackTrace();

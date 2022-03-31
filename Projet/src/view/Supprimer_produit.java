@@ -4,6 +4,21 @@
  */
 package view;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import javax.swing.*;
+
+
 /**
  *
  * @author Azouz
@@ -14,7 +29,39 @@ public class Supprimer_produit extends javax.swing.JFrame {
      * Creates new form Supprimer_produit
      */
     public Supprimer_produit() {
+        
         initComponents();
+        
+                Connection con = null;
+
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+    String requete="Select nom from produit";
+            
+    
+        Statement stm = con.createStatement();
+       
+        ResultSet resultat = stm.executeQuery(requete);
+        
+        while(resultat.next())
+        {
+            jComboBox1.addItem(resultat.getString("nom"));
+        }
+        
+        con.close();
+        
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
     }
 
     /**
@@ -30,6 +77,8 @@ public class Supprimer_produit extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,43 +92,69 @@ public class Supprimer_produit extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Produit");
+
+        jButton2.setText("Retour");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(117, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(122, 122, 122))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
                         .addComponent(jLabel2)
                         .addGap(27, 27, 27)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addGap(68, 68, 68)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(64, 64, 64))
+                .addGap(20, 20, 20)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         pack();
@@ -87,7 +162,104 @@ public class Supprimer_produit extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Connection con = null;
+
+    // db parameters
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+    String produit = jComboBox1.getSelectedItem().toString();
+    
+    String requete="Delete from produit where nom = '"+produit+"'";
+            
+        Statement stm = con.createStatement();
+        stm.executeUpdate(requete);
+                
+    
+        JOptionPane.showMessageDialog(null,"Supression réussie !");        
+        
+        con.close();
+        
+        admin_pannel pannel = new admin_pannel();
+        pannel.show();
+        dispose();
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        admin_pannel pannel = new admin_pannel();
+        pannel.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+        Connection con = null;
+
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+        
+       String produit = jComboBox1.getSelectedItem().toString();
+       
+       String requete = "Select url_image from produit where nom='"+produit+"'";
+       
+       Statement stm = con.createStatement();
+       ResultSet lien = stm.executeQuery(requete);
+       
+       String lien_image = "";
+       
+       while(lien.next())
+        {
+            lien_image = lien.getString("url_image");
+        }
+       
+       if (lien_image.length()>0)
+       {
+       try{
+       
+       jLabel3.setText("");
+       URL image = new URL(lien_image);
+       BufferedImage b = ImageIO.read(image);
+       Image image_recadre = b.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
+
+       ImageIcon icon = new ImageIcon(image_recadre);
+       jLabel3.setIcon(icon);
+       }
+       catch(MalformedURLException e){
+           e.printStackTrace();
+       }
+       catch (IOException e){
+           e.printStackTrace();
+
+       }}
+       else{jLabel3.setIcon(null);}
+       
+       lien.close();
+       con.close();
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -126,8 +298,10 @@ public class Supprimer_produit extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
