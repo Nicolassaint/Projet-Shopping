@@ -144,12 +144,7 @@ public class Statistiques extends javax.swing.JFrame {
             resultat.close();
             stm.close();
             con.close();
-            
-            int width = 1000;
-            int height = 480;
-            
-            //File BarChart = new File("C:/Users/hp/Desktop/output_chart.png");
-            //ChartUtilities.saveChartAsPNG(BarChart, BarChartObject, width, height);
+          
             
              ChartPanel chartPanel = new ChartPanel(BarChartObject,false);
              jPanel1.add(chartPanel, BorderLayout.CENTER);
