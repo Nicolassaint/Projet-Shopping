@@ -261,14 +261,15 @@ public class Modifier_produit extends javax.swing.JFrame {
     //Requete test
     String produit = jComboBox1.getSelectedItem().toString();
     
-    PreparedStatement pstm = con.prepareStatement("UPDATE produit SET nom = ?, categorie = ?, quantite = ?, prix_unitaire = ?, prix_vrac = ?, quantite_vrac = ? WHERE nom = ?");
+    PreparedStatement pstm = con.prepareStatement("UPDATE produit SET nom = ?, categorie = ?, quantite = ?, prix_unitaire = ?, prix_vrac = ?, quantite_vrac = ?,url_image = ? WHERE nom = ?");
     pstm.setString(1, jTextField2.getText());
     pstm.setString(2, jTextField3.getText());
     pstm.setString(3, jTextField4.getText());
-    pstm.setString(4, jTextField5.getText());
+    pstm.setString(7, jTextField5.getText());
+    pstm.setString(4, jTextField8.getText());
     pstm.setString(5, jTextField6.getText());
     pstm.setString(6, jTextField7.getText());
-    pstm.setString(7, jComboBox1.getSelectedItem().toString());
+    pstm.setString(8, jComboBox1.getSelectedItem().toString());
     
     pstm.executeUpdate();
        
