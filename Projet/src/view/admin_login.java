@@ -142,7 +142,7 @@ public class admin_login extends javax.swing.JFrame {
         Connection con = null;
 
     // db parameters
-    String url       = "jdbc:mysql://localhost:3306/projet";
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
     String user      = "root";
     String password  = "";
 	
