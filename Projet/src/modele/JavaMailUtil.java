@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 
 public class JavaMailUtil {
 
-	public static void sendEmail(String receveur) {
+	public static void sendEmail(String receveur,String contenu_mail) {
 		
 		String to = receveur;
 		String from = "nicolas.saint78@gmail.com";
@@ -37,8 +37,8 @@ public class JavaMailUtil {
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
 			message.addRecipient(RecipientType.TO, new InternetAddress(to));
-			message.setSubject("Facture Love to Love Paris");
-			message.setText("le ptit bonus mail qui fait plaisir");
+			message.setSubject("Facture - Love to Love Flowers Paris");
+			message.setText(contenu_mail);
 			
 			Transport.send(message);
 			System.out.println("Message envoyé avec succès !");

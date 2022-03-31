@@ -10,6 +10,6 @@ package modele;
  */
 public class JavaMail {
     public static void main(String[] args) throws Exception{
-        JavaMailUtil.sendEmail("louisepoirey78@gmail.com");
+        JavaMailUtil.sendEmail("tomchopin91@gmail.com","ta grosse daronne thomas");
     }
 }

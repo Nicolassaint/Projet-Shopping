@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import modele.JavaMailUtil.*;
 
 /**
  *
@@ -196,7 +197,13 @@ public class Paiement extends javax.swing.JFrame {
     pstm.executeUpdate();
        
         JOptionPane.showMessageDialog(null,"Paiement accepté !");        
+        int a=JOptionPane.showConfirmDialog(null,"Voulez-vous recevoir une facture par email ?");
         
+        if (a==0)
+        {
+            //Preparation mail
+        }
+
         con.close();
        
         
