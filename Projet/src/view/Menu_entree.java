@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Azouz
@@ -106,8 +108,9 @@ public class Menu_entree extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                // TODO add your handling code here:
-        dispose();
+        // TODO add your handling code here:
+        int a=JOptionPane.showConfirmDialog(null,"Etes-vous sur ?");  
+        if (a == 0){dispose();}
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
