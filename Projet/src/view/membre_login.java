@@ -100,9 +100,6 @@ public class membre_login extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FOND MEMBRES.png"))); // NOI18N
-        jLabel5.setMaximumSize(new java.awt.Dimension(1220, 685));
-        jLabel5.setMinimumSize(new java.awt.Dimension(1220, 685));
-        jLabel5.setPreferredSize(new java.awt.Dimension(1220, 685));
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -226,6 +223,13 @@ public class membre_login extends javax.swing.JFrame {
         });
     }
 
+    public static String getTextField() {
+    return jTextField1.getText();
+}
+    public static String getPasswordField() {
+    return jPasswordField1.getText();
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -233,7 +237,7 @@ public class membre_login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private static javax.swing.JPasswordField jPasswordField1;
+    private static javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

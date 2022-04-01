@@ -10,6 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.*;
 import modele.JavaMailUtil.*;
+import view.membre_login.*;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import view.membre_login.*;
 
 /**
  *
@@ -22,6 +26,61 @@ public class Paiement extends javax.swing.JFrame {
      */
     public Paiement() {
         initComponents();
+
+        Connection con = null;
+
+        // db parameters
+        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+        String user = "root";
+        String password = "";
+
+        String login = membre_login.getTextField();
+        String mdp = membre_login.getPasswordField();
+        String nom = "";
+        String prenom = "";
+        String numero_carte = "";
+        String date_exp = "";
+        String CVV = "";
+
+        try {
+            // create a connection to the database
+            con = DriverManager.getConnection(url, user, password);
+
+            //Requete test
+            String requete = "Select nom, prenom, numero_carte, date_exp, CVV from acheteur where mail = '" + login + "' and mdp = '" + mdp + "'";
+
+            Statement stm = con.createStatement();
+            ResultSet resultat = stm.executeQuery(requete);
+
+            while (resultat.next()) {
+
+                nom = resultat.getString("nom");
+                prenom = resultat.getString("prenom");
+                date_exp = resultat.getString("date_exp");
+                numero_carte = resultat.getString("numero_carte");
+                resultat.getString("CVV");
+
+            }
+
+            if (numero_carte.length() > 1) {
+                int b = JOptionPane.showConfirmDialog(null, "Voulez-vous utiliser la carte bancaire enregistrée sur votre compte ?");
+                if (b == 0) {
+                    jTextField1.setText(numero_carte);
+                    jTextField2.setText(date_exp);
+                    jTextField3.setText(CVV);
+                    jTextField5.setText(prenom);
+                    jTextField6.setText(nom);
+
+                }
+            }
+
+            resultat.close();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
     }
 
     /**
@@ -128,41 +187,44 @@ public class Paiement extends javax.swing.JFrame {
         // TODO add your handling code here:
         Connection con = null;
 
-    // db parameters
-    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
-    String user      = "root";
-    String password  = "";
-	
-    try{
-    // create a connection to the database
-    con = DriverManager.getConnection(url, user, password);
-   	
-    //Requete test
-    
-    PreparedStatement pstm = con.prepareStatement("UPDATE acheteur SET numero_carte = ?, CVV = ?, date_exp = ? WHERE nom = ? and prenom = ?");
-    pstm.setString(1, jTextField1.getText());
-    pstm.setString(2, jTextField2.getText());
-    pstm.setString(3, jTextField3.getText());
-    pstm.setString(4, jTextField6.getText());
-    pstm.setString(4, jTextField5.getText());
+        // db parameters
+        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+        String user = "root";
+        String password = "";
 
-    pstm.executeUpdate();
-       
-        JOptionPane.showMessageDialog(null,"Paiement accepté !");        
-        int a=JOptionPane.showConfirmDialog(null,"Voulez-vous recevoir une facture par email ?");
-        
-        if (a==0)
-        {
-            //Preparation mail
+        try {
+            // create a connection to the database
+            con = DriverManager.getConnection(url, user, password);
+
+            //Requete test
+            int b = JOptionPane.showConfirmDialog(null, "Voulez-vous enregistrer votre carte bancaire ?");
+
+            if (b == 0) {
+                PreparedStatement pstm = con.prepareStatement("UPDATE acheteur SET numero_carte = ?, CVV = ?, date_exp = ? WHERE nom = ? and prenom = ?");
+                pstm.setString(1, jTextField1.getText());
+                pstm.setString(2, jTextField2.getText());
+                pstm.setString(3, jTextField3.getText());
+                pstm.setString(4, jTextField6.getText());
+                pstm.setString(5, jTextField5.getText());
+
+                pstm.executeUpdate();
+            }
+
+            JOptionPane.showMessageDialog(null, "Paiement accepté !");
+            int a = JOptionPane.showConfirmDialog(null, "Voulez-vous recevoir une facture par email ?");
+
+            if (a == 0) {
+                //Preparation mail
+            }
+
+            con.close();
+
+            dispose();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
-
-        con.close();
-       
-        
-    }catch(SQLException e){
-        e.printStackTrace();
-        
-    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
