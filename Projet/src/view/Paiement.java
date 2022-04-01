@@ -262,6 +262,9 @@ public class Paiement extends javax.swing.JFrame {
             int a = JOptionPane.showConfirmDialog(null, "Voulez-vous recevoir une facture par email ?");
 
             if (a == 0) {
+                
+                String contenu_mail = "";
+                
                 //Preparation mail
             }
 

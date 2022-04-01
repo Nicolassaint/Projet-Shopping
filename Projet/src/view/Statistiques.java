@@ -120,7 +120,9 @@ public class Statistiques extends javax.swing.JFrame {
             int width = 1000;
             int height = 480;
             
-            File BarChart = new File("graphique.png");
+            String name=JOptionPane.showInputDialog(null,"Nom du fichier");      
+            String nom_fichier = name + ".png";
+            File BarChart = new File(nom_fichier);
             ChartUtilities.saveChartAsPNG(BarChart, BarChartObject, width, height);
             
             JOptionPane.showMessageDialog(null,"Le graphique à bien été enregistré !");        
