@@ -113,7 +113,7 @@ public class Supprimer_produit extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setPreferredSize(new java.awt.Dimension(500, 400));
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 90, 440, 500));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 440, 500));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SUPPRIMER UN PRODUIT FOND.png"))); // NOI18N
@@ -215,7 +215,7 @@ public class Supprimer_produit extends javax.swing.JFrame {
        jLabel3.setText("");
        URL image = new URL(lien_image);
        BufferedImage b = ImageIO.read(image);
-       Image image_recadre = b.getScaledInstance(80, 80, Image.SCALE_DEFAULT);
+       Image image_recadre = b.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
 
        ImageIcon icon = new ImageIcon(image_recadre);
        jLabel3.setIcon(icon);

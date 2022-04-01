@@ -189,13 +189,13 @@ public class Modifier_produit extends javax.swing.JFrame {
     String produit = jComboBox1.getSelectedItem().toString();
     
     PreparedStatement pstm = con.prepareStatement("UPDATE produit SET nom = ?, categorie = ?, quantite = ?, prix_unitaire = ?, prix_vrac = ?, quantite_vrac = ?,url_image = ? WHERE nom = ?");
-    pstm.setString(1, jTextField2.getText());
-    pstm.setString(2, jTextField3.getText());
-    pstm.setString(3, jTextField4.getText());
-    pstm.setString(7, jTextField5.getText());
-    pstm.setString(4, jTextField8.getText());
-    pstm.setString(5, jTextField6.getText());
-    pstm.setString(6, jTextField7.getText());
+    pstm.setString(1, jTextField3.getText());
+    pstm.setString(2, jTextField4.getText());
+    pstm.setString(3, jTextField5.getText());
+    pstm.setString(7, jTextField7.getText());
+    pstm.setString(4, jTextField6.getText());
+    pstm.setString(5, jTextField8.getText());
+    pstm.setString(6, jTextField2.getText());
     pstm.setString(8, jComboBox1.getSelectedItem().toString());
     
     pstm.executeUpdate();
@@ -238,13 +238,13 @@ public class Modifier_produit extends javax.swing.JFrame {
        
        while(affichage.next())
         {
-       jTextField2.setText(affichage.getString("nom"));
-       jTextField3.setText(affichage.getString("categorie"));
-       jTextField4.setText(affichage.getString("quantite"));
-       jTextField8.setText(affichage.getString("prix_unitaire"));
+       jTextField3.setText(affichage.getString("nom"));
+       jTextField4.setText(affichage.getString("categorie"));
+       jTextField5.setText(affichage.getString("quantite"));
+       jTextField7.setText(affichage.getString("prix_unitaire"));
        jTextField6.setText(affichage.getString("prix_vrac"));
-       jTextField7.setText(affichage.getString("quantite_vrac"));
-       jTextField5.setText(affichage.getString("url_image"));
+       jTextField8.setText(affichage.getString("quantite_vrac"));
+       jTextField2.setText(affichage.getString("url_image"));
        
         }
        

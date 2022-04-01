@@ -38,20 +38,14 @@ public class Statistiques extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1235, 720));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setBackground(new java.awt.Color(253, 239, 236));
-        jPanel2.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 1220, 283));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1220, 685));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -77,8 +71,10 @@ public class Statistiques extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/STATISTIQUES 1 FOND.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -40, 1340, 770));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jPanel3.setLayout(new java.awt.BorderLayout());
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1220, 380));
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jButton3.setText("Enregistrer le graphique");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -86,92 +82,10 @@ public class Statistiques extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel1)
-                .addGap(112, 112, 112)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(24, 24, 24))
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap())
-        );
+        getContentPane().add(jButton3, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        admin_pannel pannel = new admin_pannel();
-        pannel.show();
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Connection con = null;
-
-        // db parameters
-        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
-        String user = "root";
-        String password = "";
-
-        DefaultCategoryDataset bar_chart_dataset = new DefaultCategoryDataset();
-
-        try {
-            // create a connection to the database
-            con = DriverManager.getConnection(url, user, password);
-
-            String requete = "Select nom,quantite from produit";
-
-            Statement stm = con.createStatement();
-            ResultSet resultat = stm.executeQuery(requete);
-
-            while (resultat.next()) {
-                String nom = resultat.getString("nom");
-                int quantite = resultat.getInt("quantite");
-                bar_chart_dataset.addValue(quantite, "Quantite", nom);
-            }
-            JFreeChart BarChartObject = ChartFactory.createBarChart("Quantite en stock pour chaque fleur", "Fleur", "Quantite", bar_chart_dataset, PlotOrientation.VERTICAL, true, true, false);
-            resultat.close();
-            stm.close();
-            con.close();
-          
-            
-             ChartPanel chartPanel = new ChartPanel(BarChartObject,false);
-             jPanel2.add(chartPanel, BorderLayout.CENTER);
-             jPanel2.setVisible(true);
-             
-        } catch (Exception i) {
-            System.out.println(i);
-        }
-         
-        
-    
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -217,6 +131,55 @@ public class Statistiques extends javax.swing.JFrame {
             
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Connection con = null;
+
+        // db parameters
+        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+        String user = "root";
+        String password = "";
+
+        DefaultCategoryDataset bar_chart_dataset = new DefaultCategoryDataset();
+
+        try {
+            // create a connection to the database
+            con = DriverManager.getConnection(url, user, password);
+
+            String requete = "Select nom,quantite from produit";
+
+            Statement stm = con.createStatement();
+            ResultSet resultat = stm.executeQuery(requete);
+
+            while (resultat.next()) {
+                String nom = resultat.getString("nom");
+                int quantite = resultat.getInt("quantite");
+                bar_chart_dataset.addValue(quantite, "Quantite", nom);
+            }
+            JFreeChart BarChartObject = ChartFactory.createBarChart("Quantite en stock pour chaque fleur", "Fleur", "Quantite", bar_chart_dataset, PlotOrientation.VERTICAL, true, true, false);
+            resultat.close();
+            stm.close();
+            con.close();
+
+            ChartPanel chartPanel = new ChartPanel(BarChartObject,false);
+            jPanel3.setLayout(new java.awt.BorderLayout()); 
+            jPanel3.add(chartPanel, BorderLayout.CENTER);
+            jPanel3.validate();
+
+
+        } catch (Exception i) {
+            System.out.println(i);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        admin_pannel pannel = new admin_pannel();
+        pannel.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -255,10 +218,9 @@ public class Statistiques extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
