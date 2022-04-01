@@ -150,7 +150,7 @@ public class Ajouter_produit extends javax.swing.JFrame {
         
         if (url_image.length() == 0){url_image = "https://colonie-saint-gervais.ch/wp-content/uploads/2019/01/Photo-%C3%A0-venir.jpg";}
         
-    String requete2="Insert into produit values('"+nombre_produits_actuel+"','"+nom+"','"+categorie+"','"+quantite+"','"+prix_unitaire+"','"+prix_vrac+"','"+quantite_vrac+"','"+url_image+"')";
+    String requete2="Insert into produit values('"+nombre_produits_actuel+"','"+nom+"','"+categorie+"','"+quantite+"',0,'"+prix_unitaire+"','"+prix_vrac+"','"+quantite_vrac+"','"+url_image+"')";
 
         Statement stm2 = con.createStatement();   
         stm2.executeUpdate(requete2);

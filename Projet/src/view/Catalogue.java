@@ -189,11 +189,6 @@ public class Catalogue extends javax.swing.JFrame {
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 360, -1, -1));
 
         jButton2.setText("Calcul Prix");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 300, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CATALOGUE FOND.png"))); // NOI18N
@@ -297,11 +292,6 @@ public class Catalogue extends javax.swing.JFrame {
         
     }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
