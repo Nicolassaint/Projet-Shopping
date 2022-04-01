@@ -7,9 +7,7 @@ package view;
 import java.sql.*;
 import java.io.*;
 import java.sql.DriverManager;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.JFreeChart;
 import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
@@ -49,6 +47,7 @@ public class Examen_ventes extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +79,13 @@ public class Examen_ventes extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Retour");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,7 +93,9 @@ public class Examen_ventes extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(215, 215, 215))
+                .addGap(126, 126, 126)
+                .addComponent(jButton3)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -102,7 +110,9 @@ public class Examen_ventes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -151,15 +161,13 @@ public class Examen_ventes extends javax.swing.JFrame {
             plot4.setExplodePercent("some data 1", 0.4);
 
             PieSectionLabelGenerator gen = new StandardPieSectionLabelGenerator(
-            "{0}: {1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
-             plot4.setLabelGenerator(gen);
+                    "{0}: {1} ({2})", new DecimalFormat("0"), new DecimalFormat("0%"));
+            plot4.setLabelGenerator(gen);
 
             resultat.close();
             stm.close();
             con.close();
 
-            int width = 1000;
-            int height = 480;
 
             ChartPanel chartPanel = new ChartPanel(PieChartObject, false);
             jPanel1.setLayout(new java.awt.BorderLayout());
@@ -190,12 +198,13 @@ public class Examen_ventes extends javax.swing.JFrame {
             String requete = "Select nom,nb_ventes from produit";
 
             JFreeChart PieChartObject;
-            try (Statement stm = con.createStatement(); ResultSet resultat = stm.executeQuery(requete)) {
+            try ( Statement stm = con.createStatement();  ResultSet resultat = stm.executeQuery(requete)) {
                 while (resultat.next()) {
                     String nom = resultat.getString("nom");
                     int nombre_ventes = resultat.getInt("nb_ventes");
                     pie_chart_dataset.setValue(nom, nombre_ventes);
-                }   PieChartObject = ChartFactory.createPieChart(null, pie_chart_dataset, true, false, false);
+                }
+                PieChartObject = ChartFactory.createPieChart(null, pie_chart_dataset, true, false, false);
                 PiePlot illegalLegalRestPiePlot4 = (PiePlot) PieChartObject.getPlot();
                 illegalLegalRestPiePlot4.setSectionPaint("some data 1", new Color(0, 255, 0));
                 illegalLegalRestPiePlot4.setSectionPaint("some data 2",
@@ -211,17 +220,24 @@ public class Examen_ventes extends javax.swing.JFrame {
             int width = 1000;
             int height = 480;
 
-            String name=JOptionPane.showInputDialog(null,"Nom du fichier");      
+            String name = JOptionPane.showInputDialog(null, "Nom du fichier");
             String nom_fichier = name + ".png";
             File BarChart = new File(nom_fichier);
             ChartUtilities.saveChartAsPNG(BarChart, PieChartObject, width, height);
-            
-            JOptionPane.showMessageDialog(null,"Le graphique à bien été enregistré !"); 
+
+            JOptionPane.showMessageDialog(null, "Le graphique à bien été enregistré !");
 
         } catch (Exception i) {
             System.out.println(i);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        admin_pannel admin = new admin_pannel();
+        admin.show();
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,6 +277,7 @@ public class Examen_ventes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
