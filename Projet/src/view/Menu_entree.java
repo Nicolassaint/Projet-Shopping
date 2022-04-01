@@ -70,9 +70,6 @@ public class Menu_entree extends javax.swing.JFrame {
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 570, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Love to Love Flowers.png"))); // NOI18N
-        jLabel2.setMaximumSize(new java.awt.Dimension(1220, 685));
-        jLabel2.setMinimumSize(new java.awt.Dimension(1220, 685));
-        jLabel2.setPreferredSize(new java.awt.Dimension(1220, 685));
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1220, 700));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
