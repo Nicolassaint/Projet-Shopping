@@ -146,7 +146,10 @@ public class membre_login extends javax.swing.JFrame {
         
         if (res.next())
         {
-          JOptionPane.showMessageDialog(null,"Login reussi");        
+          JOptionPane.showMessageDialog(null,"Login reussi");   
+          Catalogue magasin = new Catalogue();
+          magasin.show();
+          dispose();
         }
         else
         {

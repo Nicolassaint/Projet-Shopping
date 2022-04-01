@@ -50,36 +50,32 @@ public class Paiement extends javax.swing.JFrame {
             String requete = "Select nom, prenom, numero_carte, date_exp, CVV from acheteur where mail = '" + login + "' and mdp = '" + mdp + "'";
 
             Statement stm = con.createStatement();
-            ResultSet resultat = stm.executeQuery(requete);
-
-            while (resultat.next()) {
-
-                nom = resultat.getString("nom");
-                prenom = resultat.getString("prenom");
-                date_exp = resultat.getString("date_exp");
-                numero_carte = resultat.getString("numero_carte");
-                resultat.getString("CVV");
-
-            }
-
-            if (numero_carte.length() > 1) {
-                int b = JOptionPane.showConfirmDialog(null, "Voulez-vous utiliser la carte bancaire enregistrée sur votre compte ?");
-                if (b == 0) {
-                    jTextField1.setText(numero_carte);
-                    jTextField2.setText(date_exp);
-                    jTextField3.setText(CVV);
-                    jTextField5.setText(prenom);
-                    jTextField6.setText(nom);
-
+            try (ResultSet resultat = stm.executeQuery(requete)) {
+                while (resultat.next()) {
+                    
+                    nom = resultat.getString("nom");
+                    prenom = resultat.getString("prenom");
+                    date_exp = resultat.getString("date_exp");
+                    numero_carte = resultat.getString("numero_carte");
+                    CVV = resultat.getString("CVV");
+                    
+                }
+                
+                if (numero_carte.length() > 1) {
+                    int b = JOptionPane.showConfirmDialog(null, "Voulez-vous utiliser la carte bancaire enregistrée sur votre compte ?");
+                    if (b == 0) {
+                        jTextField1.setText(numero_carte);
+                        jTextField2.setText(date_exp);
+                        jTextField3.setText(CVV);
+                        jTextField5.setText(prenom);
+                        jTextField6.setText(nom);
+                        
+                    }
                 }
             }
-
-            resultat.close();
             con.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-
         }
     }
 
@@ -152,6 +148,11 @@ public class Paiement extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTTON RETOUR.png"))); // NOI18N
         jButton2.setMinimumSize(new java.awt.Dimension(93, 35));
         jButton2.setPreferredSize(new java.awt.Dimension(93, 35));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 590, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -192,14 +193,41 @@ public class Paiement extends javax.swing.JFrame {
         String user = "root";
         String password = "";
 
+        String login = membre_login.getTextField();
+        String mdp = membre_login.getPasswordField();
+        String nom = "";
+        String prenom = "";
+        String numero_carte = "";
+        String date_exp = "";
+        String CVV = "";
+        
         try {
             // create a connection to the database
             con = DriverManager.getConnection(url, user, password);
+            String requete = "Select nom, prenom, numero_carte, date_exp, CVV from acheteur where mail = '" + login + "' and mdp = '" + mdp + "'";
 
+            Statement stm = con.createStatement();
+            ResultSet resultat = stm.executeQuery(requete);
+
+            while (resultat.next()) {
+
+                nom = resultat.getString("nom");
+                prenom = resultat.getString("prenom");
+                date_exp = resultat.getString("date_exp");
+                numero_carte = resultat.getString("numero_carte");
+                CVV = resultat.getString("CVV");
+
+            }
+
+            int b = 1;
+            
+            if (numero_carte.length() == 0) {
             //Requete test
-            int b = JOptionPane.showConfirmDialog(null, "Voulez-vous enregistrer votre carte bancaire ?");
-
+             b = JOptionPane.showConfirmDialog(null, "Voulez-vous enregistrer votre carte bancaire ?");
+            }
+            
             if (b == 0) {
+                
                 PreparedStatement pstm = con.prepareStatement("UPDATE acheteur SET numero_carte = ?, CVV = ?, date_exp = ? WHERE nom = ? and prenom = ?");
                 pstm.setString(1, jTextField1.getText());
                 pstm.setString(2, jTextField2.getText());
@@ -237,6 +265,13 @@ public class Paiement extends javax.swing.JFrame {
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Panier panier = new Panier();
+        panier.show();
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
