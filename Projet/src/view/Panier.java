@@ -3,8 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import view.Catalogue.*;
+
+
 /**
  *
  * @author louis
@@ -16,6 +32,38 @@ DefaultListModel list1 = new DefaultListModel();
      */
     public Panier() {
         initComponents();
+        
+        Connection con = null;
+
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+    int panier = Catalogue.nombre_panier_actuel;
+    String requete="Select nom_produit from panier where numero_panier='"+panier+"'";
+            
+    
+        Statement stm = con.createStatement();
+       
+        ResultSet resultat = stm.executeQuery(requete);
+        
+        while(resultat.next())
+        {
+            jComboBox1.addItem(resultat.getString("nom_produit"));
+        }
+        
+        con.close();
+        
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
     }
 
     /**
@@ -67,6 +115,11 @@ DefaultListModel list1 = new DefaultListModel();
         jLabel2.setText("Vos articles : ");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, -1, -1));
 
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 140, -1));
 
         jLabel3.setText("Quantité de cet article : ");
@@ -82,6 +135,11 @@ DefaultListModel list1 = new DefaultListModel();
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, -1, -1));
 
         jButton3.setText("Supprimer du panier");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, -1, -1));
 
         jLabel7.setText("Prix total du panier :");
@@ -101,6 +159,7 @@ DefaultListModel list1 = new DefaultListModel();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Catalogue magasin = new Catalogue();
+        Catalogue.setLabel("plein");
         magasin.show();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -111,6 +170,107 @@ DefaultListModel list1 = new DefaultListModel();
         payer.show();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        // TODO add your handling code here:
+        Connection con = null;
+
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+       int panier = Catalogue.nombre_panier_actuel;
+       Statement stm = con.createStatement();
+
+       /*
+       String requete3="Select nom_produit from panier where numero_panier='"+panier+"'";
+                  
+        ResultSet resultat = stm.executeQuery(requete3);
+        
+        while(resultat.next())
+        {
+            jComboBox1.addItem(resultat.getString("nom_produit"));
+        }*/
+       
+        
+        String produit = jComboBox1.getSelectedItem().toString();
+
+       String requete = "Select nombre_produit, total from panier where numero_panier='"+panier+"' and nom_produit='"+produit+"'";
+       String requete2 = "select sum(total) as total_panier from panier where numero_panier='"+panier+"'";
+       ResultSet res = stm.executeQuery(requete);
+       
+       int nombre_produit = 0;
+       double total = 0;
+       double total_panier = 0;
+       
+       
+       while(res.next())
+        {
+            nombre_produit = res.getInt("nombre_produit");
+            total = res.getDouble("total");
+        }
+       
+       res.close();
+       ResultSet res2 = stm.executeQuery(requete2);
+       
+       while(res2.next())
+       {
+           total_panier = res2.getDouble("total_panier");
+       }
+         
+       String prixArticle = String.valueOf(total) + " €";
+       String prixTotal = String.valueOf(total_panier) + " €";
+       
+         jLabel4.setText(String.valueOf(nombre_produit));
+         jLabel6.setText(prixArticle);
+         jLabel8.setText(prixTotal);
+         
+         
+       res.close();
+       con.close();
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Connection con = null;
+
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    //Requete test
+       int panier = Catalogue.nombre_panier_actuel;
+       String produit = jComboBox1.getSelectedItem().toString();
+       
+       String requete = "Delete from panier where numero_panier='"+panier+"' and nom_produit='"+produit+"'";
+       Statement stm = con.createStatement();
+       stm.executeUpdate(requete);
+       
+       jComboBox1.removeItem(produit);
+       
+       JOptionPane.showMessageDialog(null,"Article supprimé du panier !");        
+
+       con.close();
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

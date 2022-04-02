@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import view.Panier.*;
+import view.membre_login.*;
 /**
  *
  * @author louis
@@ -80,6 +81,7 @@ public class Catalogue extends javax.swing.JFrame {
         jScrollBar1 = new javax.swing.JScrollBar();
         jButton4 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -93,6 +95,10 @@ public class Catalogue extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,6 +154,9 @@ public class Catalogue extends javax.swing.JFrame {
         });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 260, -1, -1));
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 210, 90, 30));
+
+        jLabel9.setText("vide");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 130, -1));
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 270, 240));
 
         jLabel2.setText("Produit");
@@ -189,6 +198,18 @@ public class Catalogue extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, -1, -1));
 
+        jLabel15.setText("Votre panier est :");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, -1, -1));
+
+        jLabel16.setText("€");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, -1, -1));
+
+        jLabel17.setText("€");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
+
+        jLabel18.setText("€");
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 220, -1, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 420));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CATALOGUE FOND.png"))); // NOI18N
@@ -217,6 +238,8 @@ public class Catalogue extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+            static int nombre_panier_actuel = 0;
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         // TODO add your handling code here:
@@ -255,6 +278,9 @@ public class Catalogue extends javax.swing.JFrame {
 
         }
        
+         //prix_unitaire += " €";
+         //prix_vrac += " €";
+         
          jLabel11.setText(nom);
          jLabel12.setText(prix_unitaire);
          jLabel13.setText(prix_vrac);
@@ -306,12 +332,12 @@ public class Catalogue extends javax.swing.JFrame {
         }while(quantite >= Double.parseDouble(jLabel14.getText())); 
           total = total +(quantite* Double.parseDouble(jLabel12.getText()));
           jLabel10.setText(String.valueOf(total));
-          System.out.println(total);
+          //System.out.println(total);
        }
        else{
            total = total +(quantite* Double.parseDouble(jLabel12.getText()));
            jLabel10.setText(String.valueOf(total));
-            System.out.println(total);
+            //System.out.println(total);
 
        }
         
@@ -334,17 +360,16 @@ public class Catalogue extends javax.swing.JFrame {
     
     //Requete test
     String requete3 = "Select id_client from acheteur where mail = '"+login+"' and mdp = '"+mdp+"'";
-    String requete1="Select max(numero_panier) as nouveau_panier, max(id_panier) as nouveau_id from panier";
+    String requete1="Select max(numero_panier) as nouveau_panier, count(id_panier) as nouveau_id from panier";
             
         Statement stm1 = con.createStatement();
+        Statement stm2 = con.createStatement();
         ResultSet resultat = stm1.executeQuery(requete1);
-        ResultSet resultat2 = stm1.executeQuery(requete3);
+        ResultSet resultat3 = stm2.executeQuery(requete3);
         
-        int nombre_panier_actuel = 0;
         int id_panier_actuel = 0;
         int id_client = 0;
 
-        
         while(resultat.next())
         {
   
@@ -353,13 +378,19 @@ public class Catalogue extends javax.swing.JFrame {
         
         }
         
-        while(resultat2.next())
+        resultat.close();
+        
+        while(resultat3.next())
         {
-            id_client = Integer.parseInt(resultat.getObject(1).toString());
+            id_client = Integer.parseInt(resultat3.getObject(1).toString());        
         }
         
+        String text = jLabel9.getText();
         //Vérifier si c'est le même panier ou un nouveau avant d'incrémenter
+        if(text.length()==4){
         nombre_panier_actuel = nombre_panier_actuel + 1;
+        jLabel9.setText("plein");
+        }
        
         id_panier_actuel = id_panier_actuel + 1;
         
@@ -370,13 +401,12 @@ public class Catalogue extends javax.swing.JFrame {
                 
     String requete2="Insert into panier values('"+id_panier_actuel+"','"+nombre_panier_actuel+"','"+Total+"','"+quantite+"','"+nom_produit+"','"+id_client+"')";
 
-        Statement stm2 = con.createStatement();   
-        stm2.executeUpdate(requete2);
+        Statement stm3 = con.createStatement();   
+        stm3.executeUpdate(requete2);
         
         JOptionPane.showMessageDialog(null,"Article ajouté au panier !");        
         
-        resultat.close();
-        resultat2.close();
+        resultat3.close();
         con.close();
         
         
@@ -421,6 +451,9 @@ public class Catalogue extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static void setLabel(String text)
+    { jLabel9.setText(text);}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -435,6 +468,10 @@ public class Catalogue extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -442,6 +479,7 @@ public class Catalogue extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    public static javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollBar jScrollBar1;

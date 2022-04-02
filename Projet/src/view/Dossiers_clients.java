@@ -115,6 +115,11 @@ public class Dossiers_clients extends javax.swing.JFrame {
         jLabel9.setText("Argent dépensé sur le site :");
 
         jButton1.setText("Retour");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("jLabel10");
 
@@ -246,11 +251,10 @@ public class Dossiers_clients extends javax.swing.JFrame {
        String id_client = jComboBox1.getSelectedItem().toString();
        
        String requete = "Select * from acheteur where id_client ='"+id_client+"'";
-       //String requete2 = "Select sum(total) as argent_depense from acheteur,panier where acheteur.id_client = panier.id_client";
+       String requete2 = "Select sum(total) as argent_depense from panier where id_client = '"+id_client+"'";
        
        Statement stm = con.createStatement();
        ResultSet res = stm.executeQuery(requete);
-       //ResultSet res2 = stm.executeQuery(requete2);
        
        String nom = "";
        String prenom = "";
@@ -272,7 +276,10 @@ public class Dossiers_clients extends javax.swing.JFrame {
             numero_carte = res.getString("numero_carte");
 
         }
-       
+          res.close();
+          
+          ResultSet res2 = stm.executeQuery(requete2);
+          
          jLabel10.setText(nom);
          jLabel11.setText(prenom);
          jLabel12.setText(adresse);
@@ -287,16 +294,15 @@ public class Dossiers_clients extends javax.swing.JFrame {
              jLabel15.setText("Oui");
          }
 
-         /*while(res2.next())
+         while(res2.next())
          {
              argent_total = res2.getDouble("argent_depense");
          }
          
-         String str = Double.toString(argent_total);
-         jLabel16.setText(str);*/
+         String str = Double.toString(argent_total) + " €";
+         jLabel16.setText(str);
          
-       res.close();
-       //res2.close();
+       res2.close();
        con.close();
         
     }catch(SQLException e){
@@ -304,6 +310,13 @@ public class Dossiers_clients extends javax.swing.JFrame {
         
     }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        admin_pannel pannel = new admin_pannel();
+        pannel.show();
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

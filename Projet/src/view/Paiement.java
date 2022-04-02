@@ -13,7 +13,9 @@ import modele.JavaMailUtil.*;
 import view.membre_login.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import modele.JavaMailUtil;
 import view.membre_login.*;
+import view.Catalogue.*;
 
 /**
  *
@@ -34,6 +36,7 @@ public class Paiement extends javax.swing.JFrame {
         String user = "root";
         String password = "";
 
+        int numero = Catalogue.nombre_panier_actuel;
         String login = membre_login.getTextField();
         String mdp = membre_login.getPasswordField();
         String nom = "";
@@ -41,6 +44,8 @@ public class Paiement extends javax.swing.JFrame {
         String numero_carte = "";
         String date_exp = "";
         String CVV = "";
+        double total_panier = 0;
+        String prix = "";
 
         try {
             // create a connection to the database
@@ -48,19 +53,29 @@ public class Paiement extends javax.swing.JFrame {
 
             //Requete test
             String requete = "Select nom, prenom, numero_carte, date_exp, CVV from acheteur where mail = '" + login + "' and mdp = '" + mdp + "'";
+            String requete2 = "select sum(total) as total_panier from panier where numero_panier='" + numero + "'";
 
             Statement stm = con.createStatement();
-            try (ResultSet resultat = stm.executeQuery(requete)) {
+            ResultSet res = stm.executeQuery(requete2);
+
+            while (res.next()) {
+                total_panier = res.getDouble("total_panier");
+            }
+
+            prix = String.valueOf(total_panier) + " €";
+            jLabel3.setText(prix);
+
+            try ( ResultSet resultat = stm.executeQuery(requete)) {
                 while (resultat.next()) {
-                    
+
                     nom = resultat.getString("nom");
                     prenom = resultat.getString("prenom");
                     date_exp = resultat.getString("date_exp");
                     numero_carte = resultat.getString("numero_carte");
                     CVV = resultat.getString("CVV");
-                    
+
                 }
-                
+
                 if (numero_carte.length() > 1) {
                     int b = JOptionPane.showConfirmDialog(null, "Voulez-vous utiliser la carte bancaire enregistrée sur votre compte ?");
                     if (b == 0) {
@@ -69,7 +84,7 @@ public class Paiement extends javax.swing.JFrame {
                         jTextField3.setText(CVV);
                         jTextField5.setText(prenom);
                         jTextField6.setText(nom);
-                        
+
                     }
                 }
             }
@@ -96,9 +111,9 @@ public class Paiement extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +160,12 @@ public class Paiement extends javax.swing.JFrame {
         });
         jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 330, 40));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("prix");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 100, 80, 20));
+
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTTON RETOUR.png"))); // NOI18N
+        jButton2.setText("Retour");
         jButton2.setMinimumSize(new java.awt.Dimension(93, 35));
         jButton2.setPreferredSize(new java.awt.Dimension(93, 35));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -153,14 +173,11 @@ public class Paiement extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 590, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 590, 80, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/PAIEMENT FOND.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jLabel3.setText("Label à relier €");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 76, 80, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,6 +210,7 @@ public class Paiement extends javax.swing.JFrame {
         String user = "root";
         String password = "";
 
+        int panier = Catalogue.nombre_panier_actuel;
         String login = membre_login.getTextField();
         String mdp = membre_login.getPasswordField();
         String nom = "";
@@ -200,12 +218,16 @@ public class Paiement extends javax.swing.JFrame {
         String numero_carte = "";
         String date_exp = "";
         String CVV = "";
-        
+        String mail = "";
+
         try {
             // create a connection to the database
             con = DriverManager.getConnection(url, user, password);
-            String requete = "Select nom, prenom, numero_carte, date_exp, CVV from acheteur where mail = '" + login + "' and mdp = '" + mdp + "'";
-
+            String requete = "Select nom, prenom, mail, numero_carte, date_exp, CVV from acheteur where mail = '" + login + "' and mdp = '" + mdp + "'";
+            String requete2 = "Select produit.nom, produit.quantite - panier.nombre_produit from produit, panier where produit.nom = panier.nom_produit and panier.numero_panier = '" + panier + "'";
+            String requete3 = "Select produit.nom, produit.nb_ventes + panier.nombre_produit from produit, panier where produit.nom = panier.nom_produit and panier.numero_panier = '" + panier + "'";
+            String requete4 ="Select sum(total) as prix from panier where numero_panier = '"+panier+"'";
+            
             Statement stm = con.createStatement();
             ResultSet resultat = stm.executeQuery(requete);
 
@@ -216,18 +238,59 @@ public class Paiement extends javax.swing.JFrame {
                 date_exp = resultat.getString("date_exp");
                 numero_carte = resultat.getString("numero_carte");
                 CVV = resultat.getString("CVV");
+                mail = resultat.getString("mail");
 
             }
+            resultat.close();
 
+            ResultSet resultat2 = stm.executeQuery(requete2);
+
+            while (resultat2.next()) {
+
+                PreparedStatement pstm = con.prepareStatement("UPDATE produit SET quantite = ? WHERE nom = ?");
+                pstm.setInt(1, resultat2.getInt("produit.quantite - panier.nombre_produit"));
+                pstm.setString(2, resultat2.getString("nom"));
+
+                pstm.executeUpdate();
+            }
+             
+            resultat2.close();
+            
+            ResultSet resultat3 = stm.executeQuery(requete3);
+
+            while (resultat3.next()) {
+
+                PreparedStatement pstm = con.prepareStatement("UPDATE produit SET nb_ventes = ? WHERE nom = ?");
+                pstm.setInt(1, resultat3.getInt("produit.nb_ventes + panier.nombre_produit"));
+                pstm.setString(2, resultat3.getString("nom"));
+
+                pstm.executeUpdate();
+            }
+             
+            resultat3.close();
+            
+            ResultSet resultat4 = stm.executeQuery(requete4);
+            
+            double total = 0;
+            
+            while(resultat4.next())
+            {
+                total = resultat4.getDouble("prix");
+            }
+            
+            String prixTotal = String.valueOf(total);
+            
+            resultat4.close();
+            
             int b = 1;
-            
+
             if (numero_carte.length() == 0) {
-            //Requete test
-             b = JOptionPane.showConfirmDialog(null, "Voulez-vous enregistrer votre carte bancaire ?");
+                //Requete test
+                b = JOptionPane.showConfirmDialog(null, "Voulez-vous enregistrer votre carte bancaire ?");
             }
-            
+
             if (b == 0) {
-                
+
                 PreparedStatement pstm = con.prepareStatement("UPDATE acheteur SET numero_carte = ?, CVV = ?, date_exp = ? WHERE nom = ? and prenom = ?");
                 pstm.setString(1, jTextField1.getText());
                 pstm.setString(2, jTextField2.getText());
@@ -242,10 +305,10 @@ public class Paiement extends javax.swing.JFrame {
             int a = JOptionPane.showConfirmDialog(null, "Voulez-vous recevoir une facture par email ?");
 
             if (a == 0) {
+
+                String contenu_mail = "Merci beaucoup pour votre commande sur Love to Love Flowers Paris ! \n\n\n Votre commande vous a couté " + prixTotal + " €";
+                JavaMailUtil.sendEmail(mail,contenu_mail);
                 
-                String contenu_mail = "";
-                
-                //Preparation mail
             }
 
             con.close();
