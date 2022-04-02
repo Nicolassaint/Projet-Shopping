@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import view.Panier.*;
 /**
  *
@@ -74,24 +75,24 @@ public class Catalogue extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollBar1 = new javax.swing.JScrollBar();
+        jButton4 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollBar1 = new javax.swing.JScrollBar();
-        jLabel10 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,9 +127,6 @@ public class Catalogue extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prix croissant", "Prix décroissant", "Ordre alphabétique", "Bonne affaire en vrac", " " }));
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 130, 140, -1));
 
-        jLabel4.setText("Nom : ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 230, -1, -1));
-
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTTON RETOUR.png"))); // NOI18N
         jButton3.setPreferredSize(new java.awt.Dimension(93, 35));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -138,40 +136,9 @@ public class Catalogue extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 620, -1, -1));
 
-        jLabel5.setText("Prix unitaire :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 270, -1, -1));
-
-        jLabel6.setText("Prix en vrac : ");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, -1, -1));
-
-        jLabel7.setText("Quantité vrac :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 360, -1, -1));
-
-        jLabel8.setText("Quantité souhaitée");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 220, -1, -1));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 250, 60, -1));
-
-        jLabel11.setText("nom");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 230, -1, -1));
-
-        jLabel12.setText("PrixU");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 270, -1, -1));
-
-        jLabel13.setText("PrixV");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 310, -1, -1));
-
-        jLabel14.setText("QuantitéV");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 360, -1, -1));
-
-        jButton2.setText("Calcul Prix");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 300, -1, -1));
-
         jPanel2.setBackground(new java.awt.Color(240, 220, 216));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jScrollBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1153, 0, -1, 420));
-
-        jLabel10.setText("PrixCalculé");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 220, -1, -1));
 
         jButton4.setText("Ajouter au panier");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -179,11 +146,48 @@ public class Catalogue extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 300, -1, -1));
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, 170, 170));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 260, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 210, 90, 30));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 270, 240));
 
         jLabel2.setText("Produit");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 60, 30));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 60, 30));
+
+        jLabel4.setText("Nom : ");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, -1, -1));
+
+        jLabel5.setText("Prix unitaire :");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
+
+        jLabel6.setText("Prix en vrac : ");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
+
+        jLabel7.setText("Quantité vrac :");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, -1, -1));
+
+        jLabel11.setText("nom");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+
+        jLabel12.setText("PrixU");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, -1, -1));
+
+        jLabel13.setText("PrixV");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, -1, -1));
+
+        jLabel14.setText("QuantitéV");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 270, -1, -1));
+
+        jLabel8.setText("Quantité souhaitée");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 90, -1, -1));
+        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 130, 60, -1));
+
+        jButton2.setText("Calcul Prix");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 420));
 
@@ -291,6 +295,7 @@ public class Catalogue extends javax.swing.JFrame {
         // TODO add your handling code here:
         double quantite = Double.parseDouble(jTextField5.getText());
         double total = 0;
+        
        if(Double.parseDouble(jTextField5.getText()) >= Double.parseDouble(jLabel14.getText())){
           do{
             //jLabel10
@@ -305,15 +310,80 @@ public class Catalogue extends javax.swing.JFrame {
        }
        else{
            total = total +(quantite* Double.parseDouble(jLabel12.getText()));
-          jLabel10.setText(String.valueOf(total));
+           jLabel10.setText(String.valueOf(total));
+            System.out.println(total);
+
        }
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Panier j = new Panier();
-        j.setList(jLabel11.getText());
+        Connection con = null;
+    // db parameters
+    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+    String user      = "root";
+    String password  = "";
+	
+    try{
+    // create a connection to the database
+    con = DriverManager.getConnection(url, user, password);
+   	
+    String login = membre_login.getTextField();
+    String mdp = membre_login.getPasswordField();
+    
+    //Requete test
+    String requete3 = "Select id_client from acheteur where mail = '"+login+"' and mdp = '"+mdp+"'";
+    String requete1="Select max(numero_panier) as nouveau_panier, max(id_panier) as nouveau_id from panier";
+            
+        Statement stm1 = con.createStatement();
+        ResultSet resultat = stm1.executeQuery(requete1);
+        ResultSet resultat2 = stm1.executeQuery(requete3);
+        
+        int nombre_panier_actuel = 0;
+        int id_panier_actuel = 0;
+        int id_client = 0;
+
+        
+        while(resultat.next())
+        {
+  
+        nombre_panier_actuel = Integer.parseInt(resultat.getObject(1).toString());
+        id_panier_actuel = Integer.parseInt(resultat.getObject(2).toString());
+        
+        }
+        
+        while(resultat2.next())
+        {
+            id_client = Integer.parseInt(resultat.getObject(1).toString());
+        }
+        
+        //Vérifier si c'est le même panier ou un nouveau avant d'incrémenter
+        nombre_panier_actuel = nombre_panier_actuel + 1;
+       
+        id_panier_actuel = id_panier_actuel + 1;
+        
+        String nom_produit = jLabel11.getText();
+        int quantite = Integer.parseInt(jTextField5.getText());
+        double Total = Double.parseDouble(jLabel10.getText());
+        
+                
+    String requete2="Insert into panier values('"+id_panier_actuel+"','"+nombre_panier_actuel+"','"+Total+"','"+quantite+"','"+nom_produit+"','"+id_client+"')";
+
+        Statement stm2 = con.createStatement();   
+        stm2.executeUpdate(requete2);
+        
+        JOptionPane.showMessageDialog(null,"Article ajouté au panier !");        
+        
+        resultat.close();
+        resultat2.close();
+        con.close();
+        
+        
+    }catch(SQLException e){
+        e.printStackTrace();
+        
+    }
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
