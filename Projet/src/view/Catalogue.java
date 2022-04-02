@@ -164,11 +164,6 @@ public class Catalogue extends javax.swing.JFrame {
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 360, -1, -1));
 
         jButton2.setText("Calcul Prix");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 300, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(240, 220, 216));
@@ -291,6 +286,7 @@ public class Catalogue extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         double quantite = Double.parseDouble(jTextField5.getText());
@@ -319,6 +315,7 @@ public class Catalogue extends javax.swing.JFrame {
         Panier j = new Panier();
         j.setList(jLabel11.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
+
 
     /**
      * @param args the command line arguments
