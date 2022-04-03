@@ -192,10 +192,10 @@ public class Modifier_produit extends javax.swing.JFrame {
     pstm.setString(1, jTextField3.getText());
     pstm.setString(2, jTextField4.getText());
     pstm.setString(3, jTextField5.getText());
-    pstm.setString(7, jTextField7.getText());
-    pstm.setString(4, jTextField6.getText());
-    pstm.setString(5, jTextField8.getText());
-    pstm.setString(6, jTextField2.getText());
+    pstm.setString(4, jTextField7.getText());
+    pstm.setString(5, jTextField6.getText());
+    pstm.setString(6, jTextField8.getText());
+    pstm.setString(7, jTextField2.getText());
     pstm.setString(8, jComboBox1.getSelectedItem().toString());
     
     pstm.executeUpdate();
