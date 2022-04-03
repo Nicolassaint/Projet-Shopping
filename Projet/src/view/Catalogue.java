@@ -75,27 +75,19 @@ public class Catalogue extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jScrollBar1 = new javax.swing.JScrollBar();
         jButton4 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,7 +111,7 @@ public class Catalogue extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, 140, -1));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 130, 140, -1));
 
         jComboBox2.setBackground(new java.awt.Color(255, 102, 102));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toutes les catégories", "tulipe", "rose", "Amaryllidacees", "Asteraceae", "armecia", "Liliacees    ", " " }));
@@ -128,7 +120,7 @@ public class Catalogue extends javax.swing.JFrame {
                 jComboBox2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 130, 140, -1));
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 130, 140, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTTON RETOUR.png"))); // NOI18N
         jButton3.setPreferredSize(new java.awt.Dimension(93, 35));
@@ -141,73 +133,57 @@ public class Catalogue extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(240, 220, 216));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(jScrollBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1153, 0, -1, 420));
 
-        jButton4.setText("Ajouter au panier");
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTON AJOUTER AU PANIER.png"))); // NOI18N
+        jButton4.setPreferredSize(new java.awt.Dimension(106, 35));
+        jButton4.setVerifyInputWhenFocusTarget(false);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 260, -1, -1));
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 210, 90, 30));
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 240, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 200, 90, 30));
 
+        jLabel9.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel9.setText("vide");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 130, -1));
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 270, 240));
-
-        jLabel2.setText("Produit");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 60, 30));
-
-        jLabel4.setText("Nom : ");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, -1, -1));
-
-        jLabel5.setText("Prix unitaire :");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, -1, -1));
-
-        jLabel6.setText("Prix en vrac : ");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, -1, -1));
-
-        jLabel7.setText("Quantité vrac :");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 130, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 270, 240));
 
         jLabel11.setText("nom");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 164, -1, 20));
 
         jLabel12.setText("PrixU");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, -1, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 184, -1, 20));
 
         jLabel13.setText("PrixV");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, -1, -1));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 224, -1, -1));
 
         jLabel14.setText("QuantitéV");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 270, -1, -1));
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, -1, 20));
 
-        jLabel8.setText("Quantité souhaitée");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 90, -1, -1));
-        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 130, 60, -1));
+        jTextField5.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 130, 60, -1));
 
-        jButton2.setText("Calcul Prix");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTON CALCULER PRIX.png"))); // NOI18N
+        jButton2.setPreferredSize(new java.awt.Dimension(106, 35));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 170, -1, -1));
-
-        jLabel15.setText("Votre panier est :");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, -1, -1));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 160, -1, -1));
 
         jLabel16.setText("€");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, -1, -1));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 184, 20, 20));
 
         jLabel17.setText("€");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 224, 30, -1));
 
-        jLabel18.setText("€");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 220, -1, -1));
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CATALOGUE 2 FOND.png"))); // NOI18N
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, 420));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, 420));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CATALOGUE FOND.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -541,18 +517,10 @@ public class Catalogue extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     public static javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

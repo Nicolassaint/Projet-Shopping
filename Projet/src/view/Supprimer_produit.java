@@ -86,6 +86,7 @@ public class Supprimer_produit extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(1220, 685));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jComboBox1.setBackground(new java.awt.Color(255, 204, 204));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);

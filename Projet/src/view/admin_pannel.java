@@ -96,13 +96,14 @@ public class admin_pannel extends javax.swing.JFrame {
         });
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 470, -1, -1));
 
-        jButton7.setText("Examen des ventes");
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTON EXAMEN.png"))); // NOI18N
+        jButton7.setPreferredSize(new java.awt.Dimension(293, 40));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 290, -1, -1));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 520, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/GESTION INTERNE FOND.png"))); // NOI18N

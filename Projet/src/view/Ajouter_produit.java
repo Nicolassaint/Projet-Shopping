@@ -55,7 +55,7 @@ public class Ajouter_produit extends javax.swing.JFrame {
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 370, 40));
 
         jTextField3.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 370, 40));
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, 370, 40));
 
         jTextField4.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 370, 40));

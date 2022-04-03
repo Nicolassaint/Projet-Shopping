@@ -36,7 +36,7 @@ public class admin_login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
@@ -56,15 +56,15 @@ public class admin_login extends javax.swing.JFrame {
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 590, -1, -1));
 
         jTextField1.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 400, 40));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, 400, 50));
 
-        jTextField2.setBackground(new java.awt.Color(255, 204, 204));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jPasswordField1.setBackground(new java.awt.Color(255, 204, 204));
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jPasswordField1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 400, 40));
+        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 400, 50));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTTON ADMIN SE CONNECTER.png"))); // NOI18N
         jButton1.setMinimumSize(new java.awt.Dimension(150, 35));
@@ -120,7 +120,7 @@ public class admin_login extends javax.swing.JFrame {
         PreparedStatement stm = con.prepareStatement(requete);
        
         stm.setString(1,jTextField1.getText());
-        stm.setString(2,jTextField2.getText());
+        stm.setString(2,jPasswordField1.getText());
         
         ResultSet res = stm.executeQuery();
         
@@ -135,7 +135,7 @@ public class admin_login extends javax.swing.JFrame {
         {
         JOptionPane.showMessageDialog(null,"Le login ou le mot de passe est incorrect !");        
             jTextField1.setText("");
-            jTextField2.setText("");
+            jPasswordField1.setText("");
 
         }
         
@@ -149,16 +149,16 @@ public class admin_login extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         Menu_entree menu = new Menu_entree();
         menu.show();
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,7 +201,7 @@ public class admin_login extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     public javax.swing.JTextField jTextField1;
-    public javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

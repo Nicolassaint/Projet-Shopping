@@ -132,7 +132,7 @@ public class Modifier_produit extends javax.swing.JFrame {
                 jComboBox1ItemStateChanged(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 330, 30));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 340, 30));
 
         jTextField8.setBackground(new java.awt.Color(255, 204, 204));
         jTextField8.addActionListener(new java.awt.event.ActionListener() {
