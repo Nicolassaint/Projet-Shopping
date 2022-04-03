@@ -281,7 +281,7 @@ public class Paiement extends javax.swing.JFrame {
             
             int b = 1;
 
-            if (numero_carte.length() == 0) {
+            if (numero_carte.length() == 1) {
                 //Requete test
                 b = JOptionPane.showConfirmDialog(null, "Voulez-vous enregistrer votre carte bancaire ?");
             }
@@ -290,8 +290,8 @@ public class Paiement extends javax.swing.JFrame {
 
                 PreparedStatement pstm = con.prepareStatement("UPDATE acheteur SET numero_carte = ?, CVV = ?, date_exp = ? WHERE nom = ? and prenom = ?");
                 pstm.setString(1, jTextField1.getText());
-                pstm.setString(2, jTextField2.getText());
-                pstm.setString(3, jTextField3.getText());
+                pstm.setString(2, jTextField3.getText());
+                pstm.setString(3, jTextField2.getText());
                 pstm.setString(4, jTextField6.getText());
                 pstm.setString(5, jTextField5.getText());
 

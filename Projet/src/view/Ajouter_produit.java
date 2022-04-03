@@ -155,7 +155,6 @@ public class Ajouter_produit extends javax.swing.JFrame {
         Statement stm2 = con.createStatement();   
         stm2.executeUpdate(requete2);
         
-        //A blinder 
         JOptionPane.showMessageDialog(null,"Création réussie !");        
         
         con.close();
