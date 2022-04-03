@@ -4,18 +4,13 @@
  */
 package view;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+
 
 /**
  *

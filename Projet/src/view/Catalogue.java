@@ -17,8 +17,8 @@ import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import view.Panier.*;
-import view.membre_login.*;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author louis
@@ -30,37 +30,34 @@ public class Catalogue extends javax.swing.JFrame {
      */
     public Catalogue() {
         initComponents();
-        
-         Connection con = null;
 
-    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
-    String user      = "root";
-    String password  = "";
-	
-    try{
-    // create a connection to the database
-    con = DriverManager.getConnection(url, user, password);
-   	
-    //Requete test
-    String requete="Select nom from produit";
-            
-    
-        Statement stm = con.createStatement();
-       
-        ResultSet resultat = stm.executeQuery(requete);
-        
-        while(resultat.next())
-        {
-            jComboBox1.addItem(resultat.getString("nom"));
+        Connection con = null;
+
+        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+        String user = "root";
+        String password = "";
+
+        try {
+            // create a connection to the database
+            con = DriverManager.getConnection(url, user, password);
+
+            //Requete test
+            String requete = "Select nom from produit";
+
+            Statement stm = con.createStatement();
+
+            ResultSet resultat = stm.executeQuery(requete);
+
+            while (resultat.next()) {
+                jComboBox1.addItem(resultat.getString("nom"));
+            }
+
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
-        
-        con.close();
-        
-        
-    }catch(SQLException e){
-        e.printStackTrace();
-        
-    }
     }
 
     /**
@@ -117,11 +114,6 @@ public class Catalogue extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, -1, -1));
 
         jComboBox1.setBackground(new java.awt.Color(255, 102, 102));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
-            }
-        });
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -130,7 +122,12 @@ public class Catalogue extends javax.swing.JFrame {
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, 140, -1));
 
         jComboBox2.setBackground(new java.awt.Color(255, 102, 102));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Prix croissant", "Prix décroissant", "Ordre alphabétique", "Bonne affaire en vrac", " " }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toutes les catégories", "tulipe", "rose", "Amaryllidacees", "Asteraceae", "armecia", "Liliacees    ", " " }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 130, 140, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BOUTTON RETOUR.png"))); // NOI18N
@@ -222,9 +219,16 @@ public class Catalogue extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Panier panier = new Panier();
-        panier.show();
-        dispose();
+
+        String text = jLabel9.getText();
+        //Vérifier si le panier est vide
+        if (text.length() == 4) {
+            JOptionPane.showMessageDialog(null, "Votre panier est vide !");
+        } else {
+            Panier panier = new Panier();
+            panier.show();
+            dispose();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -234,188 +238,253 @@ public class Catalogue extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    static int nombre_panier_actuel = 0;
+    boolean testActionListenerActive = true;
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
-            static int nombre_panier_actuel = 0;
+        //System.out.println(testActionListenerActive);
+        if (testActionListenerActive) {
+            Connection con = null;
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        // TODO add your handling code here:
-        Connection con = null;
+            String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+            String user = "root";
+            String password = "";
 
-    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
-    String user      = "root";
-    String password  = "";
-	
-    try{
-    // create a connection to the database
-    con = DriverManager.getConnection(url, user, password);
-   	
-    //Requete test
-        
-       String produit = jComboBox1.getSelectedItem().toString();
-       
-       String requete = "Select url_image,nom,prix_unitaire,prix_vrac,quantite_vrac from produit where nom='"+produit+"'";
-       
-       Statement stm = con.createStatement();
-       ResultSet lien = stm.executeQuery(requete);
-       
-       String lien_image = "";
-       String nom = "";
-       String prix_unitaire = "";
-       String prix_vrac = "";
-       String quantite_vrac = "";
-       
-       while(lien.next())
-        {
-            lien_image = lien.getString("url_image");
-            nom = lien.getString("nom");
-            prix_unitaire = lien.getString("prix_unitaire");
-            prix_vrac = lien.getString("prix_vrac");
-            quantite_vrac = lien.getString("quantite_vrac");
+            try {
+                // create a connection to the database
+                con = DriverManager.getConnection(url, user, password);
 
+                //System.out.println(jComboBox1.getSelectedIndex());
+
+                if (jComboBox1.getSelectedItem().toString() != null) {
+                    String produit = jComboBox1.getSelectedItem().toString();
+
+                    String requete = "Select url_image,nom,prix_unitaire,prix_vrac,quantite_vrac from produit where nom='" + produit + "'";
+
+                    Statement stm = con.createStatement();
+                    ResultSet lien = stm.executeQuery(requete);
+
+                    String lien_image = "";
+                    String nom = "";
+                    String prix_unitaire = "";
+                    String prix_vrac = "";
+                    String quantite_vrac = "";
+
+                    while (lien.next()) {
+                        lien_image = lien.getString("url_image");
+                        nom = lien.getString("nom");
+                        prix_unitaire = lien.getString("prix_unitaire");
+                        prix_vrac = lien.getString("prix_vrac");
+                        quantite_vrac = lien.getString("quantite_vrac");
+
+                    }
+
+                    //prix_unitaire += " €";
+                    //prix_vrac += " €";
+                    jLabel11.setText(nom);
+                    jLabel12.setText(prix_unitaire);
+                    jLabel13.setText(prix_vrac);
+                    jLabel14.setText(quantite_vrac);
+
+                    if (lien_image.length() > 0) {
+                        try {
+
+                            jLabel3.setText("");
+                            URL image = new URL(lien_image);
+                            BufferedImage b = ImageIO.read(image);
+                            Image image_recadre = b.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+
+                            ImageIcon icon = new ImageIcon(image_recadre);
+                            jLabel3.setIcon(icon);
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+                    } else {
+                        jLabel3.setIcon(null);
+                    }
+
+                    lien.close();
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            }
         }
-       
-         //prix_unitaire += " €";
-         //prix_vrac += " €";
-         
-         jLabel11.setText(nom);
-         jLabel12.setText(prix_unitaire);
-         jLabel13.setText(prix_vrac);
-         jLabel14.setText(quantite_vrac);
-         
-       if (lien_image.length()>0)
-       {
-       try{
-       
-       jLabel3.setText("");
-       URL image = new URL(lien_image);
-       BufferedImage b = ImageIO.read(image);
-       Image image_recadre = b.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
-
-       ImageIcon icon = new ImageIcon(image_recadre);
-       jLabel3.setIcon(icon);
-       }
-       catch(MalformedURLException e){
-           e.printStackTrace();
-       }
-       catch (IOException e){
-           e.printStackTrace();
-
-       }}
-       else{jLabel3.setIcon(null);}
-       
-       lien.close();
-       con.close();
-        
-    }catch(SQLException e){
-        e.printStackTrace();
-        
-    }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         double quantite = Double.parseDouble(jTextField5.getText());
         double total = 0;
-        
-       if(Double.parseDouble(jTextField5.getText()) >= Double.parseDouble(jLabel14.getText())){
-          do{
-            //jLabel10
-           
-            total += (Double.parseDouble(jLabel13.getText())*(Double.parseDouble(jLabel14.getText())));
-            quantite = quantite-(Integer.parseInt(jLabel14.getText()));
-            
-        }while(quantite >= Double.parseDouble(jLabel14.getText())); 
-          total = total +(quantite* Double.parseDouble(jLabel12.getText()));
-          jLabel10.setText(String.valueOf(total));
-          //System.out.println(total);
-       }
-       else{
-           total = total +(quantite* Double.parseDouble(jLabel12.getText()));
-           jLabel10.setText(String.valueOf(total));
+
+        if (Double.parseDouble(jTextField5.getText()) >= Double.parseDouble(jLabel14.getText())) {
+            do {
+                //jLabel10
+
+                total += (Double.parseDouble(jLabel13.getText()) * (Double.parseDouble(jLabel14.getText())));
+                quantite = quantite - (Integer.parseInt(jLabel14.getText()));
+
+            } while (quantite >= Double.parseDouble(jLabel14.getText()));
+            total = total + (quantite * Double.parseDouble(jLabel12.getText()));
+            jLabel10.setText(String.valueOf(total));
+            //System.out.println(total);
+        } else {
+            total = total + (quantite * Double.parseDouble(jLabel12.getText()));
+            jLabel10.setText(String.valueOf(total));
             //System.out.println(total);
 
-       }
-        
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         Connection con = null;
-    // db parameters
-    String url       = "jdbc:mysql://localhost:3306/projet?useSSL=false";
-    String user      = "root";
-    String password  = "";
-	
-    try{
-    // create a connection to the database
-    con = DriverManager.getConnection(url, user, password);
-   	
-    String login = membre_login.getTextField();
-    String mdp = membre_login.getPasswordField();
-    
-    //Requete test
-    String requete3 = "Select id_client from acheteur where mail = '"+login+"' and mdp = '"+mdp+"'";
-    String requete1="Select max(numero_panier) as nouveau_panier, count(id_panier) as nouveau_id from panier";
-            
-        Statement stm1 = con.createStatement();
-        Statement stm2 = con.createStatement();
-        ResultSet resultat = stm1.executeQuery(requete1);
-        ResultSet resultat3 = stm2.executeQuery(requete3);
-        
-        int id_panier_actuel = 0;
-        int id_client = 0;
+        // db parameters
+        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+        String user = "root";
+        String password = "";
 
-        while(resultat.next())
-        {
-  
-        nombre_panier_actuel = Integer.parseInt(resultat.getObject(1).toString());
-        id_panier_actuel = Integer.parseInt(resultat.getObject(2).toString());
-        
-        }
-        
-        resultat.close();
-        
-        while(resultat3.next())
-        {
-            id_client = Integer.parseInt(resultat3.getObject(1).toString());        
-        }
-        
-        String text = jLabel9.getText();
-        //Vérifier si c'est le même panier ou un nouveau avant d'incrémenter
-        if(text.length()==4){
-        nombre_panier_actuel = nombre_panier_actuel + 1;
-        jLabel9.setText("plein");
-        }
-       
-        id_panier_actuel = id_panier_actuel + 1;
-        
-        String nom_produit = jLabel11.getText();
-        int quantite = Integer.parseInt(jTextField5.getText());
-        double Total = Double.parseDouble(jLabel10.getText());
-        
-                
-    String requete2="Insert into panier values('"+id_panier_actuel+"','"+nombre_panier_actuel+"','"+Total+"','"+quantite+"','"+nom_produit+"','"+id_client+"')";
+        try {
+            // create a connection to the database
+            con = DriverManager.getConnection(url, user, password);
 
-        Statement stm3 = con.createStatement();   
-        stm3.executeUpdate(requete2);
-        
-        JOptionPane.showMessageDialog(null,"Article ajouté au panier !");        
-        
-        resultat3.close();
-        con.close();
-        
-        
-    }catch(SQLException e){
-        e.printStackTrace();
-        
-    }
+            String login = membre_login.getTextField();
+            String mdp = membre_login.getPasswordField();
+
+            //Requete test
+            String requete3 = "Select id_client from acheteur where mail = '" + login + "' and mdp = '" + mdp + "'";
+            String requete1 = "Select max(numero_panier) as nouveau_panier, count(id_panier) as nouveau_id from panier";
+
+            Statement stm1 = con.createStatement();
+            Statement stm2 = con.createStatement();
+            ResultSet resultat = stm1.executeQuery(requete1);
+            ResultSet resultat3 = stm2.executeQuery(requete3);
+
+            int id_panier_actuel = 0;
+            int id_client = 0;
+
+            while (resultat.next()) {
+
+                nombre_panier_actuel = Integer.parseInt(resultat.getObject(1).toString());
+                id_panier_actuel = Integer.parseInt(resultat.getObject(2).toString());
+
+            }
+
+            resultat.close();
+
+            while (resultat3.next()) {
+                id_client = Integer.parseInt(resultat3.getObject(1).toString());
+            }
+
+            String text = jLabel9.getText();
+            //Vérifier si c'est le même panier ou un nouveau avant d'incrémenter
+            if (text.length() == 4) {
+                nombre_panier_actuel = nombre_panier_actuel + 1;
+                jLabel9.setText("plein");
+            }
+
+            id_panier_actuel = id_panier_actuel + 1;
+
+            String nom_produit = jLabel11.getText();
+            int quantite = Integer.parseInt(jTextField5.getText());
+            double Total = Double.parseDouble(jLabel10.getText());
+
+            String requete2 = "Insert into panier values('" + id_panier_actuel + "','" + nombre_panier_actuel + "','" + Total + "','" + quantite + "','" + nom_produit + "','" + id_client + "')";
+
+            Statement stm3 = con.createStatement();
+            stm3.executeUpdate(requete2);
+
+            JOptionPane.showMessageDialog(null, "Article ajouté au panier !");
+
+            resultat3.close();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+        Connection con = null;
+
+        String url = "jdbc:mysql://localhost:3306/projet?useSSL=false";
+        String user = "root";
+        String password = "";
+
+        String categorie = jComboBox2.getSelectedItem().toString();
+
+        if (categorie.equals("Toutes les catégories") == false) {
+
+            try {
+                // create a connection to the database
+                con = DriverManager.getConnection(url, user, password);
+
+                //Requete test
+                String requete = "Select nom from produit where categorie ='" + categorie + "'";
+
+                Statement stm = con.createStatement();
+
+                ResultSet resultat = stm.executeQuery(requete);
+
+                testActionListenerActive = false;
+
+                jComboBox1.removeAllItems();
+
+                //SwingUtilities.invokeLater(() -> testActionListenerActive = false);
+                testActionListenerActive = true;
+
+                while (resultat.next()) {
+                    jComboBox1.addItem(resultat.getString("nom"));
+
+                }
+                con.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            }
+        } else {
+
+            try {
+                con = DriverManager.getConnection(url, user, password);
+
+                //Requete test
+                String requete = "Select nom from produit";
+
+                Statement stm = con.createStatement();
+
+                ResultSet resultat = stm.executeQuery(requete);
+
+                testActionListenerActive = false;
+
+                jComboBox1.removeAllItems();
+
+                //SwingUtilities.invokeLater(() -> testActionListenerActive = false);
+                testActionListenerActive = true;
+
+                while (resultat.next()) {
+                    jComboBox1.addItem(resultat.getString("nom"));
+
+                }
+                con.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+            }
+        }
+
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -451,9 +520,10 @@ public class Catalogue extends javax.swing.JFrame {
             }
         });
     }
-    
-    public static void setLabel(String text)
-    { jLabel9.setText(text);}
+
+    public static void setLabel(String text) {
+        jLabel9.setText(text);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

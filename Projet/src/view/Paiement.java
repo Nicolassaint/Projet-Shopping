@@ -9,13 +9,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.*;
-import modele.JavaMailUtil.*;
-import view.membre_login.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import modele.JavaMailUtil;
-import view.membre_login.*;
-import view.Catalogue.*;
+
 
 /**
  *
